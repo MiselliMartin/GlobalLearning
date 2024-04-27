@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100svw;
+  background-color: #fafafa;
+  text-align: center;
+}
+
+.btn {
+  width: 100px;
+  aspect-ratio: 1/1;
+  border-radius: 10px;
+  background-color: rgb(66, 66, 66);
+  margin: 10px auto;
+}
+
+.span {
+  height: 5%;
+  width: 50%;
+  background-color: white;
+  display: inline-block;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: blueviolet;
+}
+
+.btn:focus {
+  background-color: rgb(104, 32, 172);
+}
+
+.btn:focus .span1 {
+  transform: translateY(14px) rotate(45deg);
+}
+
+.btn:focus .span2 {
+  transform: rotate(-45deg);
+}
+
+.btn:focus .span3 {
+  transform: rotate(360deg);
+  background-color: transparent;
+}

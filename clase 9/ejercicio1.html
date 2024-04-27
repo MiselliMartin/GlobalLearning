@@ -1,0 +1,53 @@
+<head>
+  <style>
+    body {
+      background: linear-gradient(90deg, goldenrod, crimson);
+    }
+
+    h1,
+    p,
+    form {
+      margin: 8px auto;
+      text-align: center;
+    }
+
+    p {
+      font-size: 1.5em;
+    }
+
+    h1 {
+      font-family: system-ui;
+    }
+
+    h1::before {
+      content: "🔎 ";
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    button {
+      font-size: x-small;
+      font-weight: bold;
+      text-transform: uppercase;
+      background-color: goldenrod;
+      border-radius: 10px;
+      border: 2px solid black;
+      padding: 6px 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Search For Ideas!</h1>
+    <p>This is a simple search bar.</p>
+  </header>
+  <section>
+    <form>
+      <label for="search">Search:</label>
+      <input id="search" type="text" placeholder="Type here..." />
+      <button type="submit">send</button>
+    </form>
+  </section>
+</body>
