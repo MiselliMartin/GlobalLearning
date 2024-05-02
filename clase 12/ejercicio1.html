@@ -30,10 +30,14 @@
       <span class="hidden" id="spanpassword"></span>
 
       <label for="birthday">Ingrese su fecha de nacimiento</label>
-      <input type="date" id="birthday" name="birthday" />
-      <span class="hidden" id="spanbirthday"
-        >Esta información es obligatoria.</span
-      >
+      <input
+        type="date"
+        id="birthday"
+        name="birthday"
+        min="1900-01-01"
+        max="2020-12-31"
+      />
+      <span id="spanbirthday"></span>
 
       <div>
         <label for="newsletter">Desea recibir nuestro periódico?</label>

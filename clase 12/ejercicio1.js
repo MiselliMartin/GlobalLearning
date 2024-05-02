@@ -47,6 +47,16 @@ function validateInput(input, span) {
   }
 }
 
+function validateBirthday(input, span) {
+  if (input.value != "") {
+    span.textContent = "";
+    return true;
+  } else {
+    span.textContent = "Ingrese su fecha de nacimiento.";
+    return false;
+  }
+}
+
 inputName.addEventListener("input", () => {
   validateInput(inputName, spanName);
 });
@@ -61,6 +71,10 @@ inputUsername.addEventListener("input", () => {
 
 inputPassword.addEventListener("input", () => {
   validateInput(inputPassword, spanPassword);
+});
+
+inputBirthday.addEventListener("input", () => {
+  validateBirthday(inputBirthday, spanBirthday);
 });
 
 inputNewsletter.addEventListener("click", () => {
