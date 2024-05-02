@@ -1,41 +1,55 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: #181818;
-    color: #fafafa;
+  background-color: #181818;
+  color: #fafafa;
 }
 
 form {
-    display: grid;
-    place-content: center;
-    margin: 20px auto;
+  display: grid;
+  place-content: center;
+  margin: 20px auto;
 }
 
 form input {
-    margin: 5px auto;
-    padding: 5px;
-    border-radius: 10px;
-    border: 1px solid #181818;
+  margin: 5px auto;
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid #181818;
 }
 
 form span {
-    font-size: x-small;
-    color: red;
-    font-style: italic;
+  font-size: x-small;
+  color: red;
+  font-style: italic;
+}
+
+form button {
+  margin-top: 10px;
+  font-size: large;
+  padding: 5px 10px;
+  background-color: bisque;
+  border-radius: 10px;
+  color: #181818;
+  font-weight: bold;
 }
 
 .invalid {
-    margin: 2px solid red;
+  margin: 2px solid red;
 }
 
-.hidden{
-    display: none;
+.hidden {
+  display: none;
+}
+
+.thanks {
+  color: green;
 }
 
 #newsletter {
-    margin-left: 5px;
+  margin-left: 5px;
 }

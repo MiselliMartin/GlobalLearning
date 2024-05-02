@@ -1,0 +1,70 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 5px;
+  font-family: "Montserrat", sans-serif;
+  line-height: 1.5em;
+  font-size: 1.2rem;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+h2 span {
+  color: rgb(139, 136, 136);
+  text-decoration-line: spelling-error;
+}
+
+h2 span:hover {
+  cursor: none;
+}
+
+h2 span:hover {
+  color: transparent;
+  text-decoration-line: none;
+}
+
+.info {
+  margin: 10px 0px;
+}
+
+section {
+  margin: 10px 0px;
+}
+
+.skills {
+  margin: 0px 5px;
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5px;
+  justify-items: center;
+}
+
+.skills li {
+  font-size: 1rem;
+  font-family: monospace;
+  padding: 5px 5px;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+}
+
+.skills li:hover {
+  background-color: rgb(61, 61, 61);
+  color: white;
+  cursor: cell;
+}
