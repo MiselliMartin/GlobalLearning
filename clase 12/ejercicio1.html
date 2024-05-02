@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="ejercicio1.css">
+    <title>Form</title>
+</head>
+<body>
+    <form action="">
+        <label for="name">Ingrese su nombre</label>
+        <input type="text" id="name" name="name" placeholder="Nombre"/>
+        <span class="hidden" id="spanname">El nombre es obligatorio.</span>
+
+        <label for="lastname">Ingrese su apellido</label>
+        <input type="text" id="lastname" name="lastname" placeholder="Apellido"/>
+        <span class="hidden" id="spanlastname">El apellido es obligatorio.</span>
+
+        <label for="username">Ingrese su username</label>
+        <input type="text" id="username" name="username" placeholder="Usuario"/>
+        <span class="hidden" id="spanusername">El username es obligatorio.</span>
+
+        <label for="password">Ingrese su contraseña</label>
+        <input type="password" id="password" name="password" placeholder="Contraseña"/>
+        <span class="hidden" id="spanpassword">La contraseña es obligatoria.</span>
+
+        <label for="birthday">Ingrese su fecha de nacimiento</label>
+        <input type="date" id="birthday" name="birthday" >
+        <span class="hidden">Esta información es obligatoria.</span>
+        
+        <div>
+            <label for="newsletter">Desea recibir nuestro periódico?</label>
+            <input type="checkbox" id="newsletter" name="newsletter" />
+        </div>
+
+    </form>
+
+    <script src="ejercicio1.js"></script>
+</body>
+</html>

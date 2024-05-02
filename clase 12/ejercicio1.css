@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #181818;
+    color: #fafafa;
+}
+
+form {
+    display: grid;
+    place-content: center;
+    margin: 20px auto;
+}
+
+form input {
+    margin: 5px auto;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #181818;
+}
+
+form span {
+    font-size: x-small;
+    color: red;
+    font-style: italic;
+}
+
+.invalid {
+    margin: 2px solid red;
+}
+
+.hidden{
+    display: none;
+}
+
+#newsletter {
+    margin-left: 5px;
+}
