@@ -21,7 +21,7 @@ h2 {
   font-size: 1rem;
 }
 
-h2 span {
+.no-doubt {
   color: rgb(139, 136, 136);
   text-decoration-line: spelling-error;
 }
@@ -33,6 +33,7 @@ h2 span:hover {
 h2 span:hover {
   color: transparent;
   text-decoration-line: none;
+  position: absolute;
 }
 
 .info {

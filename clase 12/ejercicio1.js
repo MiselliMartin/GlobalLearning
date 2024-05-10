@@ -20,6 +20,26 @@ const spanPasswordRegEx = document.getElementById("spanpasswordregex");
 const form = document.querySelector("form");
 const spanSubmit = document.getElementById("spansubmit");
 
+const modal = document.getElementById("myModal");
+// Obtener el botón que abre la ventana modal
+const btn = document.getElementById("btnSubmit");
+// Obtener el párrafo dentro de la ventana modal para mostrar los datos del formulario
+const modalText = document.getElementById("modalText");
+// Obtener los botones de cancelar y confirmar dentro de la ventana modal
+const cancelButton = document.getElementById("cancelButton");
+const confirmButton = document.getElementById("confirmButton");
+
+function openModal() {
+  modal.style.display = "block";
+  // Mostrar los datos ingresados en el formulario dentro de la ventana modal
+  modalText.textContent = `Nombre: ${inputName.value}\nApellido: ${inputLastname.value}\nUsuario: ${inputUsername.value}\nContraseña: ${inputPassword.value}\nFecha de Nacimiento: ${inputBirthday.value}`;
+}
+
+// Función para cerrar la ventana modal
+function closeModal() {
+  modal.style.display = "none";
+}
+
 function validateInput(input, span) {
   const regex = /^[a-zA-ZñÑáÁéÉíÍóÓúÚ]+$/;
 
@@ -105,7 +125,15 @@ form.addEventListener("submit", () => {
     spanSubmit.textContent =
       "Por favor, complete todos los campos correctamente.";
   } else {
-    // Si todos los campos son válidos, podemos enviar el formulario
-    form.submit();
+    openModal();
   }
+});
+
+// Evento de clic en el botón de cancelar
+cancelButton.addEventListener("click", closeModal);
+
+// Evento de clic en el botón de confirmar
+confirmButton.addEventListener("click", function() {
+  // Envía el formulario si el usuario confirma
+  form.submit();
 });
