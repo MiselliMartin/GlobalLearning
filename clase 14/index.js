@@ -1,4 +1,18 @@
+import { readFileSync, writeFileSync } from 'fs';
 
+const data = readFileSync('./datos.txt')
+
+const datos = data.toString().split(' ')
+
+let datosPares = [];
+
+datos.forEach((dato) => {
+  if (parseInt(dato) % 2 == 0) datosPares.push(dato)
+})
+
+console.log(datosPares.length)
+
+writeFileSync('./datosPares.txt', `Existen ${datosPares.length} números pares, que son: \n${datosPares}`)
 
 //DESAFIO
 const contarHasta10 = () => {
