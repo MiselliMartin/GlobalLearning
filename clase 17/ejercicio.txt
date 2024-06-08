@@ -1,0 +1,20 @@
+SELECT COUNT(*) 
+FROM store
+
+SELECT COUNT(*)
+FROM film
+WHERE duration > 120
+
+SELECT COUNT(*)
+FROM payment? (no recuerdo el nombre y no estoy en mi pc perdón)
+WHERE customer_id = 472
+
+SELECT film_id
+FROM film
+WHERE inventory_id = 303
+
+SELECT address, district 
+FROM address
+WHERE customer_id = (SELECT customer_id FROM customer WHERE phone = 634445428822)
+(hice una subquery porque no recuerdo si phone estaba en address pero tiene más sentido que esté en customer (?
+perdón por no tener la bd para corroborar pero quería hacerlos ahora porque me retrasé un montón)

@@ -1,0 +1,7 @@
+
+{'date':'Sat Jun 08 2024 12:04:14 GMT-0300 (Argentina Standard Time)', 'method': 'GET', 'time': '1.096ms', 'path': '/', 'status': '200'
+{'date':'Sat Jun 08 2024 12:04:19 GMT-0300 (Argentina Standard Time)', 'method': 'GET', 'time': '0.215ms', 'path': '/holi', 'status': '200'
+{'date':'Sat Jun 08 2024 12:04:24 GMT-0300 (Argentina Standard Time)', 'method': 'GET', 'time': '2.487ms', 'path': '/inexistente', 'status': '404'
+
+{'date':'Sat Jun 08 2024 12:05:37 GMT-0300 (Argentina Standard Time)', 'method': 'POST', 'time': '1.114ms', 'path': '/', 'status': '201'
+{'date':'Sat Jun 08 2024 12:05:40 GMT-0300 (Argentina Standard Time)', 'method': 'DELETE', 'time': '0.245ms', 'path': '/', 'status': '204'

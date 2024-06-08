@@ -1,0 +1,27 @@
+SELECT COUNT(*) AS peliculas 
+FROM film 
+WHERE title LIKE 'S%'
+
+SELECT SUM(lenght) AS duracion_minutos 
+FROM film 
+WHERE rating = 'PG-13'
+
+SELECT email, COUNT(r.*)
+FROM costumer c
+JOIN rental r
+ON c.email = r.email
+ORDER BY c.email
+GROUP BY c.email;
+
+SELECT phone 
+FROM address
+ORDER BY CAST(postal_code as INTEGER) DESC
+LIMIT 1
+
+SELECT a.address, a.district, ci.city
+FROM address a
+JOIN customer c
+ON a.address_id = c.address_id
+JOIN city ci
+ON a.city_id = ci.city_id
+WHERE customer_id = (SELECT customer_id FROM customer WHERE active = 0 LIMIT 1)
