@@ -62,12 +62,12 @@ export const userController = () => {
   }
 
   const updateById = async(req, res, next) => {
-    const {idParam} = req.params
-    const id = Number(idParam)
+    const {id} = req.params
+    const userId = Number(idParam)
     const updateUser = req.body
     try {
       const user = await prisma.user.update({
-        where: {id},
+        where: {id: userId},
         data: updateUser
       })
       
@@ -87,12 +87,12 @@ export const userController = () => {
   }
 
   const deleteById = async (req, res, next) => {
-    const {idParam} = req.params
-    const id = Number(idParam)
+    const { id } = req.params
+    const userId = Number(idParam)
 
     try {
       await prisma.user.delete({
-        where: {id}
+        where: {id: userId}
       })
 
       return response.status(200).json({message: 'User deleted successfully'})
@@ -105,10 +105,33 @@ export const userController = () => {
     }
   }
 
+  const getById = async (req, res, next) => {
+    const { id } = req.params
+    const userId = Number(id)
+
+    try {
+      const user = prisma.user.findUnique({where: {id: userId}})
+
+      const responseFormat = {
+        data: user,
+        message: 'User retrieved successfully'
+      }
+
+      return response.status(200).json(responseFormat)
+    }
+    catch (err) {
+      next(err)
+    }
+    finally {
+      await prisma.$disconnect()
+    }
+  }
+
   return {
     register,
     login,
     updateById,
     deleteById,
+    getById
   }
 }
