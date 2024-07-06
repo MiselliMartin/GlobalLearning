@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  username      String    @unique
+  email         String    @unique
+  name          String
+  lastname      String
+  password      String    
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  reports       Report[]  // Relación con reportes
+  comments      Comment[] // Relación con comentarios
+}
+
+enum ReportStatus {
+  OPEN
+  CLAIMED
+  RESOLVED
+}
+
+enum ReportType {
+  OBJECT
+  PERSON
+  PET
+}
+
+model Report {
+  id          Int       @id @default(autoincrement())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int       @map("user_id")
+  title       String
+  description String
+  type        ReportType
+  status      ReportStatus @default(OPEN)
+  coordinates Float[]
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  comments    Comment[] // Relación con comentarios
+}
+
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  report    Report   @relation(fields: [reportId], references: [id])
+  reportId  Int      @map("report_id")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int      @map("user_id")
+  text      String
+  createdAt DateTime @default(now()) @map("created_at")
+}
