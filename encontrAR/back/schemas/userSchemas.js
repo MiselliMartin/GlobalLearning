@@ -44,6 +44,20 @@ export const userRegisterSchema = Joi.object({
 // Ahora está en cookie
 
 export const updateUserSchema = Joi.object({
-  body: userRegisterSchema.extract('body')
+  body: Joi.object({
+    username: Joi.string().max(30).messages({
+      'string.max': 'username debe tener un máximo de 30 caracteres',
+    }),
+    email: Joi.string().email().messages({
+      'string.email': 'email debe ser un correo válido',
+    }),
+    name: Joi.string().messages({
+    }),
+    lastname: Joi.string().messages({
+    }),
+    password: Joi.string().min(6).messages({
+      'string.min': 'password debe tener mínimo 6 caractéres'
+    })
+  })
   //params: idUserSchema.extract('params')
 })

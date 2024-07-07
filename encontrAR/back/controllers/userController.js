@@ -65,7 +65,7 @@ export const userController = () => {
   }
 
   const updateById = async(req, res, next) => {
-    const { id } = req.tokenId
+    const id = req.tokenId
     
     const updateUser = req.body
     try {
@@ -90,7 +90,7 @@ export const userController = () => {
   }
 
   const deleteById = async (req, res, next) => {
-    const { id } = req.tokenId
+    const id = req.tokenId
 
     try {
       await prisma.user.delete({

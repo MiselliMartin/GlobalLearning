@@ -1,3 +1,4 @@
+import HTTP_STATUS from "../helpers/httpStatus.js";
 import { verifyToken } from "../utils/jwt.service.js";
 
 export const validateToken = async (req, res, next) => {
@@ -13,7 +14,7 @@ export const validateToken = async (req, res, next) => {
       console.log(err);
     }
   } else {
-      return res.status(401).json({message: 'Unauthorized'})
+      return res.status(HTTP_STATUS.UNAUTHORIZED).json({message: 'Unauthorized'})
   }
   next();
 };
