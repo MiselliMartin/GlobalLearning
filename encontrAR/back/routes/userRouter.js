@@ -1,17 +1,16 @@
 import { Router } from 'express'
 import { userController } from '../controllers/userController.js'
 import { schemaValidator } from '../middlewares/validations.js'
-import {userLoginSchema, userRegisterSchema, idUserSchema, updateUserSchema} from '../schemas/userSchemas.js'
-const { register, login, deleteById, updateById, getById } = bookController()
+import { validateUserRegistration } from '../middlewares/validateUserRegistration.js'
+import { validateToken } from '../middlewares/validateToken.js'
+import { userLoginSchema, userRegisterSchema, updateUserSchema } from '../schemas/userSchemas.js'
+const { register, login, deleteById, updateById, getById } = userController()
 
 
 export const userRouter = Router()
 
-userRouter.post('/register', schemaValidator(userRegisterSchema), register)
+userRouter.post('/register', schemaValidator(userRegisterSchema), validateUserRegistration, register)
 userRouter.post('/login', schemaValidator(userLoginSchema), login)
-userRouter.get('/user/:id', schemaValidator(idUserSchema), getById)
-userRouter.delete('/user/:id', schemaValidator(idUserSchema), deleteById)
-userRouter.patch('/user/:id', schemaValidator(updateUserSchema), updateById)
-
-
-
+userRouter.patch('/user', validateToken, schemaValidator(updateUserSchema), updateById)
+userRouter.get('/user', validateToken, getById)
+userRouter.delete('/user', validateToken, deleteById)

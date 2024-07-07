@@ -14,6 +14,7 @@ const ERROR_HANDLERS = {
 
 const errorHandler = (error, _request, response, _next) => {
   console.error('Error Handler')
+  console.error(error)
 
   const handler = ERROR_HANDLERS[error.name] || ERROR_HANDLERS.defaultError
 

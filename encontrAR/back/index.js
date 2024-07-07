@@ -1,10 +1,11 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
+import cookieParser from "cookie-parser"
 import { expressjwt as ejwt } from 'express-jwt'
-import reportRouter from './routes/reportRouter.js'
-import commentRouter from './routes/commentRouterr.js'
-import userRouter from './routes/userRouter.js'
+import { reportRouter } from './routes/reportRouter.js'
+import { commentRouter } from './routes/commentRouter.js'
+import { userRouter } from './routes/userRouter.js'
 import errorHandler from './middlewares/errorHandler.js'
 
 dotenv.config()
@@ -17,16 +18,24 @@ app.use(cors({
   origin: '*',
   methods: 'GET, POST, PUT, DELETE',
 }))
+app.use(cookieParser())
 
 app.use(ejwt({
   secret: process.env.SECRET_KEY,
   algorithms: ['HS256'],
+  getToken: function fromCookie(req) {
+    if (req && req.cookies) {
+      return req.cookies.token;
+    }
+    return null;
+  }
 }).unless({
   path: ['/api/login', '/api/register'],
-})
-)
+}));
 
 app.use('/api', userRouter, reportRouter, commentRouter)
+
+//middleware después de los endpoints, por ende en el catch{next(err)} == el error pasa y entra a errorHandler
 app.use(errorHandler)
 
 app.listen(SERVER_PORT, () => {

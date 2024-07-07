@@ -1,16 +1,10 @@
 import httpStatus from '../helpers/httpStatus.js'
-import jwt from 'jsonwebtoken'
 import { encrypt, verified } from '../utils/bcrypt.js'
 import { PrismaClient } from '@prisma/client'
+import { generateToken } from '../utils/jwt.service.js'
+
 const prisma = new PrismaClient()
 
-const generateToken = (data) => {
-  const token = jwt.sign(data, process.env.SECRET_KEY, {
-    expiresIn: '1d'
-  })
-
-  return token
-}
 
 export const userController = () => {
 
@@ -26,7 +20,11 @@ export const userController = () => {
         message: 'User created successfully'
       }
 
-      return response.status(httpStatus.CREATED).json(responseFormat)
+      //manejo de token en cookies
+      const token = generateToken({id: user.id, email: user.email})
+      res.cookie("token", token)
+
+      return res.status(httpStatus.CREATED).json(responseFormat)
     }
     catch(err) {
       return next(err)
@@ -41,14 +39,19 @@ export const userController = () => {
     try {
       const user = await prisma.user.findUnique({where: {email}})
       if (!user) {
+        res.clearCookie("token")
         return res.status(httpStatus.NOT_FOUND).json({message: 'User not found'})
       }
       const isMatch = await verified(password, user.password)
       if (!isMatch) {
+        res.clearCookie("token")
         return res.status(httpStatus.UNAUTHORIZED).json({message: 'Invalid credentials'})
       }
+
       const token = generateToken({id: user.id, email: user.email})
-      return response.status(httpStatus.OK).json({
+      res.cookie("token", token)
+
+      return res.status(httpStatus.OK).json({
         message: 'Login successful',
         token
       })
@@ -62,21 +65,21 @@ export const userController = () => {
   }
 
   const updateById = async(req, res, next) => {
-    const {id} = req.params
-    const userId = Number(idParam)
+    const { id } = req.tokenId
+    
     const updateUser = req.body
     try {
       const user = await prisma.user.update({
-        where: {id: userId},
+        where: {id},
         data: updateUser
       })
       
       const responseFormat = {
-        data: book,
-        message: 'Book updated successfully'
+        data: user,
+        message: 'User updated successfully'
       }
 
-      return response.status(200).json(responseFormat)
+      return res.status(200).json(responseFormat)
     }
     catch (err) {
       return next(err)
@@ -87,15 +90,14 @@ export const userController = () => {
   }
 
   const deleteById = async (req, res, next) => {
-    const { id } = req.params
-    const userId = Number(idParam)
+    const { id } = req.tokenId
 
     try {
       await prisma.user.delete({
-        where: {id: userId}
+        where: {id}
       })
 
-      return response.status(200).json({message: 'User deleted successfully'})
+      return res.status(200).json({message: 'User deleted successfully'})
     }
     catch (err) {
       return next(err)
@@ -106,18 +108,18 @@ export const userController = () => {
   }
 
   const getById = async (req, res, next) => {
-    const { id } = req.params
-    const userId = Number(id)
+    const id = req.tokenId
+    console.log(id)
 
     try {
-      const user = prisma.user.findUnique({where: {id: userId}})
+      const user = await prisma.user.findUnique({where: {id}})
 
       const responseFormat = {
         data: user,
         message: 'User retrieved successfully'
       }
 
-      return response.status(200).json(responseFormat)
+      return res.status(200).json(responseFormat)
     }
     catch (err) {
       next(err)

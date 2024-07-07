@@ -13,3 +13,8 @@ export const idCommentSchema = Joi.object({
     id: Joi.string().pattern(/^[0-9]+$/, 'Debe ser un número').required()
   })
 })
+
+export const updateCommentSchema = Joi.object({
+  body: bodyCommentSchema.extract('body'),
+  params: idCommentSchema.extract('params')
+})
