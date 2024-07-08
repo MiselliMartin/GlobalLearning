@@ -7,16 +7,13 @@ export const bodyReportSchema = Joi.object({
       'string.empty': 'title no puede estar vacío'
     }),
     description: Joi.string().required().messages({
-      'any.required': 'title es requerido',
-      'string.empty': 'title no puede estar vacío'
+      'any.required': 'description es requerido',
+      'string.empty': 'description no puede estar vacío'
     }),
     type: Joi.string().valid('OBJECT', 'PERSON', 'PET').required().messages({
       'any.required': 'type es requerido'}),
-    status: Joi.string().valid('OPEN', 'CLAIMED', 'RESOLVED').required().messages({
-      'any.required': 'status es requerido'}),
     coordinates: Joi.array().items(Joi.number()).min(2).required().messages({
       'any.required': 'coordinates es requerido'}),
-    userId: Joi.number().integer().required()
   })
 });
 
@@ -27,6 +24,18 @@ export const idReportSchema = Joi.object({
 }) 
 
 export const updateReportSchema = Joi.object({
-  body: bodyReportSchema.extract('body'),
+  body: Joi.object({
+    title: Joi.string().messages({
+      'string.empty': 'title no puede estar vacío'
+    }),
+    description: Joi.string().messages({
+      'string.empty': 'description no puede estar vacío'
+    }),
+    type: Joi.string().valid('OBJECT', 'PERSON', 'PET'),
+    status: Joi.string().valid('OPEN', 'CLAIMED', 'RESOLVED'),
+    coordinates: Joi.array().items(Joi.number()).min(2).messages({
+      'number.valid': 'debe ser un número'
+    }),
+  }),
   params: idReportSchema.extract('params')
 })

@@ -18,10 +18,13 @@ app.use(cors({
   origin: '*',
   methods: 'GET, POST, PUT, DELETE',
 }))
-app.use(cookieParser())
 
+
+app.use(cookieParser());
+
+const JWT_SECRET = process.env.SECRET_KEY || "default-secret";
 app.use(ejwt({
-  secret: process.env.SECRET_KEY,
+  secret: JWT_SECRET,
   algorithms: ['HS256'],
   getToken: function fromCookie(req) {
     if (req && req.cookies) {

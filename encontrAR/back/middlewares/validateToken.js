@@ -6,7 +6,6 @@ export const validateToken = async (req, res, next) => {
   if (token) {
     try {
       const decodedToken = verifyToken(token);
-      console.log(decodedToken)
       if (decodedToken) {
         req.tokenId = decodedToken.id; 
       }

@@ -5,7 +5,6 @@ import { generateToken } from '../utils/jwt.service.js'
 
 const prisma = new PrismaClient()
 
-
 export const userController = () => {
 
   const register = async(req, res, next) => {
@@ -15,19 +14,20 @@ export const userController = () => {
 
     try {
       const createdUser = await prisma.user.create({data: newUser})
+      
       const responseFormat = {
         data: createdUser,
         message: 'User created successfully'
       }
 
       //manejo de token en cookies
-      const token = generateToken({id: user.id, email: user.email})
+      const token = generateToken({id: createdUser.id, email: createdUser.email})
       res.cookie("token", token)
 
       return res.status(httpStatus.CREATED).json(responseFormat)
     }
-    catch(err) {
-      return next(err)
+    catch(error) {
+      next(error)
     }
     finally {
     await prisma.$disconnect()
