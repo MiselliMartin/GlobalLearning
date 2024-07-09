@@ -64,6 +64,12 @@ export const userController = () => {
     }
   }
 
+  const logout = async (_req, res, _next) => {
+    res.cookie("token", "", {
+      expires: new Date(0),
+    });
+    res.status(200).json({ message: "Logged out." });
+  };
   const updateById = async(req, res, next) => {
     const id = req.tokenId
     
@@ -132,6 +138,7 @@ export const userController = () => {
   return {
     register,
     login,
+    logout,
     updateById,
     deleteById,
     getById

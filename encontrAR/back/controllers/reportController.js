@@ -1,6 +1,4 @@
-import { response } from 'express'
 import httpStatus from '../helpers/httpStatus.js'
-import { encrypt, verified } from '../utils/bcrypt.js'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
@@ -40,10 +38,20 @@ export const reportController = () => {
   }
 
   const getReportById = async (req, res, next) => {
-    const { id } = req.params
+    const id = Number(req.params.id)
 
     try {
-      const report = await prisma.report.findUnique({where:{id}})
+      const report = await prisma.report.findUnique({
+        where: { id },
+        include: {
+          comments: {
+            include: {
+              user: true // Si también quieres incluir los detalles del usuario que hizo el comentario
+            }
+          },
+          user: true // Si también quieres incluir los detalles del usuario que hizo el reporte
+        }
+      });
 
       if (!report) {
         return res.status(httpStatus.NOT_FOUND).json({ message: 'Report not found' })
@@ -90,7 +98,7 @@ export const reportController = () => {
   }
 
   const updateReport = async(req, res, next) => {
-    const { id } = req.params
+    const id = Numnber(req.params.id)
     const reportToUpdate = req.body
 
     try {
@@ -119,7 +127,7 @@ export const reportController = () => {
   }
 
   const deleteReport = async (req, res, next) => {
-    const { id } = req.params
+    const id = Number(req.params.id)
 
     try {
       const report = await prisma.report.delete({where: {id}})

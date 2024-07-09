@@ -2,8 +2,6 @@ import Joi from 'joi'
 
 export const bodyCommentSchema = Joi.object({
   body:Joi.object({
-    reportId: Joi.number().integer().required(),
-    userId: Joi.number().integer().required(),
     text: Joi.string().required()
   })
 })
