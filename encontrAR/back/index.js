@@ -33,7 +33,7 @@ app.use(ejwt({
     return null;
   }
 }).unless({
-  path: ['/api/login', '/api/register'],
+  path: ['/api/login', '/api/register', '/api/allReports'],
 }));
 
 app.use('/api', userRouter, reportRouter, commentRouter)
