@@ -148,16 +148,26 @@ export const reportController = () => {
 
   const getAllReports = async (_req, res, next) => {
     try {
-      const reports = await prisma.report.findMany()
+      const reports = await prisma.report.findMany({
+        where: { status: 'OPEN' },
+        include: {
+          comments: {
+            include: {
+              user: true 
+            }
+          },
+          user: true 
+        }
+      })
 
       if (!reports) {
-        return res.status(httpStatus.NOT_FOUND).json({ message: 'Report not found' })
+        return res.status(httpStatus.NOT_FOUND).json({ message: 'Reports not found' })
       }
 
       const responseFormat = 
       {
         data: reports,
-        message: 'Report created successfully'
+        message: 'Reports retrieved successfully'
       }
 
       return res.status(httpStatus.OK).json(responseFormat)
@@ -169,12 +179,66 @@ export const reportController = () => {
       await prisma.$disconnect()
     }
   }
+
+  const getNearReports = async (req, res, next) => {
+    const { lat, lng } = req.query;
+    const degreeRange = 0.05;
+  
+    if (!lat || !lng) {
+      return res.status(400).json({ error: 'Faltan coordenadas' });
+    }
+  
+    const latFloat = parseFloat(lat);
+    const lngFloat = parseFloat(lng);
+  
+    const minLat = latFloat - degreeRange;
+    const maxLat = latFloat + degreeRange;
+    const minLng = lngFloat - degreeRange;
+    const maxLng = lngFloat + degreeRange;
+  
+    try {
+      const reports = await prisma.report.findMany({
+        include: {
+          comments: {
+            include: {
+              user: true
+            }
+          },
+          user: true
+        }
+      });
+  
+      const nearReports = reports.filter(report => {
+        const [reportLat, reportLng] = report.coordinates;
+        return reportLat >= minLat && reportLat <= maxLat &&
+               reportLng >= minLng && reportLng <= maxLng;
+      });
+  
+      if (nearReports.length === 0) {
+        return res.status(httpStatus.NOT_FOUND).json({ message: 'Reports not found' });
+      }
+  
+      const responseFormat = {
+        data: nearReports,
+        message: 'Reports retrieved successfully'
+      };
+  
+      return res.status(httpStatus.OK).json(responseFormat);
+    } catch (error) {
+      next(error);
+    } finally {
+      await prisma.$disconnect();
+    }
+  };
+  
+  
   return {
     createReport, 
     getReportById, 
     getReportsByUser, 
     updateReport, 
     deleteReport,
-    getAllReports
+    getAllReports,
+    getNearReports
   }
 }

@@ -12,6 +12,7 @@ export const idCommentSchema = Joi.object({
   })
 })
 
+//prar el update uso ambos
 export const updateCommentSchema = Joi.object({
   body: bodyCommentSchema.extract('body'),
   params: idCommentSchema.extract('params')

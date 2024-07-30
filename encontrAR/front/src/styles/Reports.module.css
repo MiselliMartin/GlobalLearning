@@ -1,0 +1,36 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px; 
+  padding: 20px; 
+  min-height: 72dvh;
+}
+
+.card {
+  border-radius: 15px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-height: 300px;
+  justify-content: space-around;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.person {
+  border: 2px #cd4343 solid;
+}
+
+.object {
+  border: 2px #3bb33b solid;
+}
+
+.pet {
+  border: 2px #3085d6 solid;
+}

@@ -28,8 +28,8 @@ model User {
 
 enum ReportStatus {
   OPEN
-  CLAIMED
-  RESOLVED
+  SOLVED
+  SOLVING
 }
 
 enum ReportType {
@@ -47,6 +47,8 @@ model Report {
   type        ReportType
   status      ReportStatus @default(OPEN)
   coordinates Float[]
+  city        String    @default("Unknown")
+  state       String    @default("Unknown")
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
   comments    Comment[] // Relación con comentarios

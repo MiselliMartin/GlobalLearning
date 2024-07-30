@@ -8,7 +8,7 @@ export const userLoginSchema = Joi.object({
     }),
     password: Joi.string().min(6).required().messages({
       'any.required': 'password es requerido',
-      'string.min': 'password debe tener mínimo 6 caractéres'
+      'string.min': 'password debe tener mínimo 6 caracteres'
     })
   })
 })

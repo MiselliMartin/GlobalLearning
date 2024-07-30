@@ -3,19 +3,24 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #8aaeb9;
+  background-color: #66929f;
   color: white;
+  height: 8dvh;
 }
 
 .title {
   font-size: 24px;
   font-family: monospace, sans-serif, arial;
   margin: 0;
+  text-decoration: none;
+  color: inherit;
 }
+
 
 .ar {
   font-size: 25px;
-  color: rgb(59 76 103)
+  color: rgb(59 76 103);
+  font-family:fantasy
 }
 
 .menuContainer {
@@ -35,6 +40,8 @@
 }
 
 .menu {
+  min-width: 139px;
+  z-index:1000;
   position: absolute;
   top: 100%;
   right: 0;
@@ -55,4 +62,14 @@
 
 .menuItem:hover {
   background-color: #f0f0f0;
+}
+
+.divOptions {
+  display: flex;
+  gap: 10px;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit
 }

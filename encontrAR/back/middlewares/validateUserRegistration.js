@@ -3,6 +3,8 @@ const prisma = new PrismaClient()
 
 export const validateUserRegistration = async (req, res, next) => {
 
+  //ESTO NO DEBERÍA ESTAR EN EL USERCONTROLLER? POSIBLEMENTE
+
   const { username, email } = req.body;
 
   try {

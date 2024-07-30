@@ -32,7 +32,7 @@ export const updateReportSchema = Joi.object({
       'string.empty': 'description no puede estar vacío'
     }),
     type: Joi.string().valid('OBJECT', 'PERSON', 'PET'),
-    status: Joi.string().valid('OPEN', 'CLAIMED', 'RESOLVED'),
+    status: Joi.string().valid('OPEN', 'SOLVING', 'SOLVED'),
     coordinates: Joi.array().items(Joi.number()).min(2).messages({
       'number.valid': 'debe ser un número'
     }),

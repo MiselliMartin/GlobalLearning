@@ -1,7 +1,7 @@
 import httpStatus from '../helpers/httpStatus.js'
 import { encrypt, verified } from '../utils/bcrypt.js'
 import { PrismaClient } from '@prisma/client'
-import { generateToken } from '../utils/jwt.service.js'
+import { generateToken, verifyToken } from '../utils/jwt.service.js'
 
 const prisma = new PrismaClient()
 
@@ -15,15 +15,21 @@ export const userController = () => {
     try {
       const createdUser = await prisma.user.create({data: newUser})
       
-      const responseFormat = {
-        data: createdUser,
-        message: 'User created successfully'
-      }
-
       //manejo de token en cookies
       const token = generateToken({id: createdUser.id, email: createdUser.email})
-      res.cookie("token", token)
+      res.cookie('token', token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None',
+      });
 
+      
+      const responseFormat = {
+        data: createdUser,
+        token,
+        message: 'User created successfully'
+      }
+      
       return res.status(httpStatus.CREATED).json(responseFormat)
     }
     catch(error) {
@@ -49,11 +55,16 @@ export const userController = () => {
       }
 
       const token = generateToken({id: user.id, email: user.email})
-      res.cookie("token", token)
+      res.cookie('token', token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None',
+      });
 
       return res.status(httpStatus.OK).json({
         message: 'Login successful',
-        token
+        token,
+        data: user
       })
     } 
     catch (error) {
@@ -70,6 +81,7 @@ export const userController = () => {
     });
     res.status(200).json({ message: "Logged out." });
   };
+
   const updateById = async(req, res, next) => {
     const id = req.tokenId
     
@@ -135,12 +147,40 @@ export const userController = () => {
     }
   }
 
+  const verify = async (req, res, next) => {
+    try {
+      const token = req.cookies.token;
+      if (!token) {
+        return res.status(httpStatus.UNAUTHORIZED).json({ message: 'No token provided' });
+      }
+  
+      const decoded = verifyToken(token);
+      const user = await prisma.user.findUnique({ where: { id: decoded.id } });
+  
+      if (!user) {
+        return res.status(httpStatus.NOT_FOUND).json({ message: 'User not found' });
+      }
+  
+      const responseFormat = {
+        data: user,
+        message: 'Token is valid.'
+      }
+
+      return res.status(200).json(responseFormat)
+    } catch (error) {
+      return res.status(httpStatus.UNAUTHORIZED).json({ message: 'Invalid token', error: error.message });
+    } finally {
+      await prisma.$disconnect();
+    }
+  };
+
   return {
     register,
     login,
     logout,
     updateById,
     deleteById,
-    getById
+    getById,
+    verify
   }
 }

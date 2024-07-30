@@ -1,14 +1,23 @@
 .footer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-color: #8aaeb9;
+  background-color: #66929f;
   color: white;
+  gap: 5px;
+  height: 20dvh;
 }
 
 .text {
-  font-size: 16px;
+  font-size: 1em;
   text-align: center;
   font-family: monospace, sans-serif, arial;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.5em
 }

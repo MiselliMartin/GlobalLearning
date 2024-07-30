@@ -8,24 +8,30 @@ import { commentRouter } from './routes/commentRouter.js'
 import { userRouter } from './routes/userRouter.js'
 import errorHandler from './middlewares/errorHandler.js'
 
+//Variables .env
 dotenv.config()
 
 const SERVER_PORT = process.env.SERVER_PORT || 3001
 
+// donde se levanta el front
 const app = express()
 app.use(express.json())
 app.use(cors({
-  origin: '*',
-  methods: 'GET, POST, PUT, DELETE',
+  origin: 'http://127.0.0.1:5173', 
+  credentials: true,
+  methods: 'GET, POST, PATCH, DELETE',
 }))
 
-
+//porque manejo el token en las cookies
 app.use(cookieParser());
 
+
+//para indicarle que el token está en las cookies
 const JWT_SECRET = process.env.SECRET_KEY || "default-secret";
 app.use(ejwt({
   secret: JWT_SECRET,
   algorithms: ['HS256'],
+  
   getToken: function fromCookie(req) {
     if (req && req.cookies) {
       return req.cookies.token;
@@ -33,7 +39,7 @@ app.use(ejwt({
     return null;
   }
 }).unless({
-  path: ['/api/login', '/api/register', '/api/allReports'],
+  path: ['/api/login', '/api/register', '/api/allReports', '/api/verify', '/api/nearReports'],
 }));
 
 app.use('/api', userRouter, reportRouter, commentRouter)

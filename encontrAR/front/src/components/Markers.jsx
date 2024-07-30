@@ -1,22 +1,13 @@
 import { CircleMarker, Popup } from 'react-leaflet';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useStore } from '../store/useStore.js'
 
 export const Markers = () => {
-  const [reports, setReports] = useState([]);
-
-  const getReports = async () => {
-    try {
-      const response = await fetch('http://localhost:3000/api/allReports');
-      const { data } = await response.json();
-      console.log(data);
-      setReports(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const reports = useStore((store) => store.reports)
+  const { fetchReports } = useStore()
 
   useEffect(() => {
-    getReports();
+    fetchReports();
   }, []);
 
   const MarkerList = ({ reports }) => (

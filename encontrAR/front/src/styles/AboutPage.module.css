@@ -1,0 +1,42 @@
+.container {
+  padding: 0% 20%;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #fafafa;
+  color: #181818;
+}
+
+.title {
+  font-size: 2.5em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  font-size: 1.5em;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.text {
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.features, .advantages {
+  list-style: none;
+  padding: 0;
+}
+
+.features li, .advantages li {
+  margin-bottom: 10px;
+}
+
+.steps {
+  list-style: decimal;
+  margin-left: 20px;
+}
+
+.steps li {
+  margin-bottom: 10px;
+}
